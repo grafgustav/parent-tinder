@@ -1,0 +1,45 @@
+/* src/assets/styles/global.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  main {
+    min-height: calc(100vh - 140px); /* Adjust based on your header/footer height */
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  button {
+    font-family: inherit;
+  }
+  
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--card-bg-color);
+  }
+  
+  /* For Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: var(--card-bg-color);
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+  }
