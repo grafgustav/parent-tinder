@@ -1,6 +1,7 @@
 // src/pages/Home.tsx
 import React from 'react';
 import '../assets/styles/home.css';
+import NotificationTester from '../components/NotificationTester';
 
 interface HomeProps {
   navigateTo?: (page: string) => void;
@@ -30,6 +31,9 @@ const Home: React.FC<HomeProps> = ({ navigateTo }) => {
           </div>
         </div>
       </section>
+
+      {/* Add the notification tester component */}
+      <NotificationTester />
 
       <section className="features">
         <h2>How ParentConnect Works</h2>

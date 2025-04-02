@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import ThemeToggle from '../ui/ThemeToggle';
+import NotificationsBell from '../ui/NotificationsBell';
 
 interface NavbarProps {
   navigateTo: (page: string) => void;
@@ -114,6 +115,9 @@ const Navbar: React.FC<NavbarProps> = ({ navigateTo }) => {
             </>
           )}
           
+          <li className="nav-item notifications-item">
+            <NotificationsBell navigateTo={navigateTo} />
+          </li>
           <li className="nav-item theme-toggle-item">
             <ThemeToggle />
           </li>

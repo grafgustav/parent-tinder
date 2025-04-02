@@ -1,59 +1,69 @@
 /* src/assets/styles/theme.css */
 :root {
-    /* Light theme (default) */
-    --primary-color: #e67e22;
-    --secondary-color: #f39c12;
-    --accent-color: #d35400;
-    --text-color: #34495e;
-    --text-light: #7f8c8d;
-    --bg-color: #fff9f5;
-    --card-bg-color: #ffffff;
-    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --border-color: #e0e0e0;
-    --input-bg: #ffffff;
-    --input-border: #ddd;
-    --hover-bg: #f0f0f0;
-    --success-color: #27ae60;
-    --warning-color: #f39c12;
-    --error-color: #e74c3c;
-    --info-color: #3498db;
-    --badge-bg: rgba(52, 152, 219, 0.2);
-  }
-  
-  [data-theme='dark'] {
-    --primary-color: #f39c12;
-    --secondary-color: #e67e22;
-    --accent-color: #ff9f43;
-    --text-color: #ecf0f1;
-    --text-light: #bdc3c7;
-    --bg-color: #2c3e50;
-    --card-bg-color: #34495e;
-    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    --border-color: #4a6178;
-    --input-bg: #2c3e50;
-    --input-border: #4a6178;
-    --hover-bg: #3d5a76;
-    --success-color: #2ecc71;
-    --warning-color: #f1c40f;
-    --error-color: #e74c3c;
-    --info-color: #3498db;
-    --badge-bg: rgba(52, 152, 219, 0.3);
-  }
-  
-  /* General transition for theme changes */
-  body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-  
-  /* Apply variables to common elements */
-  input, textarea, select {
-    background-color: var(--input-bg);
-    border-color: var(--input-border);
-    color: var(--text-color);
-  }
-  
-  button {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
+  /* Light theme (default) */
+  --primary-color: #e67e22;
+  --secondary-color: #f39c12;
+  --accent-color: #d35400;
+  --text-color: #34495e;
+  --text-light: #7f8c8d;
+  --bg-color: #fff9f5;
+  --card-bg-color: #ffffff;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-color: #e0e0e0;
+  --input-bg: #ffffff;
+  --input-border: #ddd;
+  --hover-bg: #f0f0f0;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --error-color: #e74c3c;
+  --info-color: #3498db;
+  --badge-bg: rgba(52, 152, 219, 0.2);
+  --primary-color-rgb: 230, 126, 34;
+  --secondary-color-rgb: 243, 156, 18;
+  --text-color-rgb: 52, 73, 94;
+  --text-light-rgb: 127, 140, 141;
+}
+
+[data-theme='dark'] {
+  --primary-color: #f39c12;
+  --secondary-color: #e67e22;
+  --accent-color: #ff9f43;
+  --text-color: #ecf0f1;
+  --text-light: #bdc3c7;
+  --bg-color: #2c3e50;
+  --card-bg-color: #34495e;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --border-color: #4a6178;
+  --input-bg: #2c3e50;
+  --input-border: #4a6178;
+  --hover-bg: #3d5a76;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --error-color: #e74c3c;
+  --info-color: #3498db;
+  --badge-bg: rgba(52, 152, 219, 0.3);
+  --primary-color-rgb: 243, 156, 18;
+  --secondary-color-rgb: 230, 126, 34;
+  --text-color-rgb: 236, 240, 241;
+  --text-light-rgb: 189, 195, 199;
+}
+
+/* General transition for theme changes */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Apply variables to common elements */
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-color);
+}
+
+button {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
