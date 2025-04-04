@@ -1,0 +1,1388 @@
+openapi: 3.0.3
+info:
+  title: ParentConnect API
+  description: API for connecting parents based on children's ages, interests, and locations
+  version: 1.0.0
+  contact:
+    name: ParentConnect Support
+    email: support@parentconnect.example
+servers:
+  - url: https://api.parentconnect.example/v1
+    description: Production server
+  - url: http://localhost:8080/v1
+    description: Development server
+
+tags:
+  - name: Authentication
+    description: User authentication operations
+  - name: Users
+    description: User profile management
+  - name: Matches
+    description: Parent matching functionality
+  - name: Conversations
+    description: Messaging between matched parents
+  - name: Events
+    description: Events and meetups organization
+  - name: Notifications
+    description: User notifications
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequest'
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid input or email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate a user
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh authentication token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid or expired refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Logout user and invalidate token
+      operationId: logoutUser
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Successfully logged out
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: Get current user's profile
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Users
+      summary: Update current user's profile
+      operationId: updateCurrentUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileUpdate'
+      responses:
+        '200':
+          description: User profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/me/image:
+    post:
+      tags:
+        - Users
+      summary: Upload or update profile image
+      operationId: uploadProfileImage
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Image uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageUploadResponse'
+        '400':
+          description: Invalid input or unsupported image format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Users
+      summary: Remove profile image
+      operationId: deleteProfileImage
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Image removed successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches:
+    get:
+      tags:
+        - Matches
+      summary: Get potential matches for the user
+      operationId: getPotentialMatches
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of matches per page
+      responses:
+        '200':
+          description: List of potential matches retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches/my-matches:
+    get:
+      tags:
+        - Matches
+      summary: Get users who have matched with current user
+      operationId: getMyMatches
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of matches per page
+      responses:
+        '200':
+          description: List of matches retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches/{userId}:
+    post:
+      tags:
+        - Matches
+      summary: Like/match with another user
+      operationId: createMatch
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to match with
+      responses:
+        '201':
+          description: Match created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponse'
+        '400':
+          description: Invalid input or already matched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Matches
+      summary: Unlike/unmatch from another user
+      operationId: deleteMatch
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to unmatch from
+      responses:
+        '204':
+          description: Match removed successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User or match not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations:
+    get:
+      tags:
+        - Conversations
+      summary: Get all conversations for current user
+      operationId: getConversations
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of conversations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations/{userId}:
+    post:
+      tags:
+        - Conversations
+      summary: Start a new conversation with a user
+      operationId: startConversation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to start conversation with
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageRequest'
+      responses:
+        '201':
+          description: Conversation started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '400':
+          description: Invalid input or users not matched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations/{conversationId}:
+    get:
+      tags:
+        - Conversations
+      summary: Get a specific conversation
+      operationId: getConversation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the conversation
+      responses:
+        '200':
+          description: Conversation retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations/{conversationId}/messages:
+    get:
+      tags:
+        - Conversations
+      summary: Get messages in a conversation
+      operationId: getMessages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the conversation
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Number of messages per page
+      responses:
+        '200':
+          description: Messages retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagePage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Conversations
+      summary: Send a message in a conversation
+      operationId: sendMessage
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageRequest'
+      responses:
+        '201':
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations/{conversationId}/read:
+    put:
+      tags:
+        - Conversations
+      summary: Mark conversation as read
+      operationId: markConversationAsRead
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the conversation
+      responses:
+        '204':
+          description: Conversation marked as read successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Get all public events
+      operationId: getEvents
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of events per page
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [date, title, createdAt]
+            default: date
+          description: Sort field
+        - name: direction
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: Sort direction
+      responses:
+        '200':
+          description: List of events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Events
+      summary: Create a new event
+      operationId: createEvent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '201':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/mine:
+    get:
+      tags:
+        - Events
+      summary: Get events created by current user
+      operationId: getMyEvents
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of events per page
+      responses:
+        '200':
+          description: List of events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/attending:
+    get:
+      tags:
+        - Events
+      summary: Get events user is attending
+      operationId: getAttendingEvents
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of events per page
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [going, maybe, all]
+            default: all
+          description: Filter by RSVP status
+      responses:
+        '200':
+          description: List of events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/{eventId}:
+    get:
+      tags:
+        - Events
+      summary: Get specific event details
+      operationId: getEvent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the event
+      responses:
+        '200':
+          description: Event retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Events
+      summary: Update an event
+      operationId: updateEvent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '200':
+          description: Event updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Not event creator
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Events
+      summary: Cancel/delete an event
+      operationId: deleteEvent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the event
+      responses:
+        '204':
+          description: Event deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Not event creator
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/{eventId}/rsvp:
+    post:
+      tags:
+        - Events
+      summary: RSVP to an event
+      operationId: rsvpToEvent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RsvpRequest'
+      responses:
+        '200':
+          description: RSVP updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RsvpResponse'
+        '400':
+          description: Invalid input or event full
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      summary: Get all notifications for current user
+      operationId: getNotifications
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Page number
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Number of notifications per page
+        - name: read
+          in: query
+          schema:
+            type: boolean
+          description: Filter by read status
+      responses:
+        '200':
+          description: List of notifications retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Notifications
+      summary: Clear all notifications
+      operationId: clearAllNotifications
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: All notifications cleared successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /notifications/{notificationId}/read:
+    put:
+      tags:
+        - Notifications
+      summary: Mark notification as read
+      operationId: markNotificationAsRead
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the notification
+      responses:
+        '204':
+          description: Notification marked as read successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Notification not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /notifications/read-all:
+    put:
+      tags:
+        - Notifications
+      summary: Mark all notifications as read
+      operationId: markAllNotificationsAsRead
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: All notifications marked as read successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /notifications/{notificationId}:
+    delete:
+      tags:
+        - Notifications
+      summary: Delete a notification
+      operationId: deleteNotification
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the notification
+      responses:
+        '204':
+          description: Notification deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Notification not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    RegistrationRequest:
+      type: object
+      required:
+        - email
+        - password
+        - firstName
+        - lastName
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        firstName:
+          type: string
+        lastName:
+          type: string
+        location:
+          type: string
+        bio:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: Token expiration time in seconds
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        location:
+          type: string
+        bio:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+        profileImageUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    UserProfileUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        location:
+          type: string
+        bio:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+
+    Child:
+      type: object
+      required:
+        - age
+      properties:
+        id:
+          type: string
+          format: uuid
+        age:
+          type: integer
+          minimum: 0
+          maximum: 18
+
+    ImageUploadResponse:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+        message:
+          type: string
+
+    MatchScore:
+      type: object
+      properties:
+        interestScore:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        ageCompatibilityScore:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        totalScore:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        commonInterests:
+          type: array
+          items:
+            type: string
+
+    MatchResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        matchedUser:
+          $ref: '#/components/schemas/UserProfile'
+        matchScore:
+          $ref: '#/components/schemas/MatchScore'
+        createdAt:
+          type: string
+          format: date-time
+        isMutual:
+          type: boolean
+
+    MatchPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchResponse'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParticipantInfo'
+        lastMessage:
+          $ref: '#/components/schemas/Message'
+        unreadCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ParticipantInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profileImageUrl:
+          type: string
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        conversationId:
+          type: string
+          format: uuid
+        senderId:
+          type: string
+          format: uuid
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        read:
+          type: boolean
+
+    MessageRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          minLength: 1
+          maxLength: 1000
+
+    MessagePage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        ageRange:
+          $ref: '#/components/schemas/AgeRange'
+        createdBy:
+          $ref: '#/components/schemas/ParticipantInfo'
+        attendees:
+          type: array
+          items:
+            $ref
