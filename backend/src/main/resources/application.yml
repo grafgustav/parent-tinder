@@ -1,0 +1,13 @@
+// application.yml
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/parent-connect
+      auto-index-creation: true
+  profiles:
+    active: dev
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:veryLongSecretKeyThatShouldBeAtLeast64BytesLongForHS512Algorithm}
+    expiration: 86400000 # 24 hours
