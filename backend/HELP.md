@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.guero.parent-tinder' is invalid and this project uses 'com.guero.parent_tinder' instead.
+* The original package name 'com.guero.parent-tinder' is invalid and this project uses 'com.guero.parenttinder' instead.
 
 # Getting Started
 

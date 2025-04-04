@@ -1,4 +1,4 @@
-package com.guero.parent_tinder
+package com.guero.parenttinder
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

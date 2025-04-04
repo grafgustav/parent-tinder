@@ -7,8 +7,6 @@ info:
     name: ParentConnect Support
     email: support@parentconnect.example
 servers:
-  - url: https://api.parentconnect.example/v1
-    description: Production server
   - url: http://localhost:8080/v1
     description: Development server
 
