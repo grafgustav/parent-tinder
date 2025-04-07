@@ -1,5 +1,5 @@
 // security/UserDetailsServiceImpl.kt
-package com.example.parenttinder.security
+package com.guero.parenttinder.security
 
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -11,7 +11,7 @@ import java.util.Collections
 
 @Service
 class UserDetailsServiceImpl(
-    private val userService: com.example.parenttinder.service.UserService
+    private val userService: com.guero.parenttinder.service.UserService
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {

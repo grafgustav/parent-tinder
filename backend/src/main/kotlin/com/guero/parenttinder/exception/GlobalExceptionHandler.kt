@@ -1,5 +1,5 @@
 // exception/GlobalExceptionHandler.kt
-package com.example.parenttinder.exception
+package com.guero.parenttinder.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

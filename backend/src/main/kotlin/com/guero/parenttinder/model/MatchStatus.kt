@@ -1,5 +1,5 @@
 // model/MatchStatus.kt
-package com.example.parenttinder.model
+package com.guero.parenttinder.model
 
 enum class MatchStatus {
     PENDING, ACCEPTED, REJECTED

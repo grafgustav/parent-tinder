@@ -1,9 +1,9 @@
 // service/EventService.kt
-package com.example.parenttinder.service
+package com.guero.parenttinder.service
 
-import com.example.parenttinder.exception.ResourceNotFoundException
-import com.example.parenttinder.model.Event
-import com.example.parenttinder.repository.EventRepository
+import com.guero.parenttinder.exception.ResourceNotFoundException
+import com.guero.parenttinder.model.Event
+import com.guero.parenttinder.repository.EventRepository
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

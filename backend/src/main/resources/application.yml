@@ -1,8 +1,7 @@
-// application.yml
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/parent-connect
+      uri: mongodb://admin:password@localhost:27017/parent-connect?authSource=admin
       auto-index-creation: true
   profiles:
     active: dev

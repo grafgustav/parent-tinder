@@ -1,11 +1,11 @@
 // controller/MessageController.kt
-package com.example.parenttinder.controller
+package com.guero.parenttinder.controller
 
-import com.example.parenttinder.dto.MessageDto
-import com.example.parenttinder.model.Message
-import com.example.parenttinder.service.AuthService
-import com.example.parenttinder.service.MessageService
-import com.example.parenttinder.service.ParentProfileService
+import com.guero.parenttinder.dto.MessageDto
+import com.guero.parenttinder.model.Message
+import com.guero.parenttinder.service.AuthService
+import com.guero.parenttinder.service.MessageService
+import com.guero.parenttinder.service.ParentProfileService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

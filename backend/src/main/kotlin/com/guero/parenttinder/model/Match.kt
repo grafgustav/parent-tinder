@@ -1,5 +1,5 @@
 // model/Match.kt
-package com.example.parenttinder.model
+package com.guero.parenttinder.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.CompoundIndex

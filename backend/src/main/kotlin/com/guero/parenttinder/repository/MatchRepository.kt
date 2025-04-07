@@ -1,8 +1,8 @@
 // repository/MatchRepository.kt
-package com.example.parenttinder.repository
+package com.guero.parenttinder.repository
 
-import com.example.parenttinder.model.Match
-import com.example.parenttinder.model.MatchStatus
+import com.guero.parenttinder.model.Match
+import com.guero.parenttinder.model.MatchStatus
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository

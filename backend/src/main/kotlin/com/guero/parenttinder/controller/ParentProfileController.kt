@@ -1,10 +1,10 @@
 // controller/ParentProfileController.kt
-package com.example.parenttinder.controller
+package com.guero.parenttinder.controller
 
-import com.example.parenttinder.dto.ParentProfileDto
-import com.example.parenttinder.model.ParentProfile
-import com.example.parenttinder.service.AuthService
-import com.example.parenttinder.service.ParentProfileService
+import com.guero.parenttinder.dto.ParentProfileDto
+import com.guero.parenttinder.model.ParentProfile
+import com.guero.parenttinder.service.AuthService
+import com.guero.parenttinder.service.ParentProfileService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

@@ -1,7 +1,7 @@
 // config/SecurityConfig.kt
-package com.example.parenttinder.config
+package com.guero.parenttinder.config
 
-import com.example.parenttinder.security.JwtAuthenticationFilter
+import com.guero.parenttinder.security.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

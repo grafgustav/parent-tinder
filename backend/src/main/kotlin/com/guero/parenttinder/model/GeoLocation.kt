@@ -1,5 +1,5 @@
 // model/GeoLocation.kt
-package com.example.parenttinder.model
+package com.guero.parenttinder.model
 
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType

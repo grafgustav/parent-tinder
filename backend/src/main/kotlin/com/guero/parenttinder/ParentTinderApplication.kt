@@ -1,5 +1,5 @@
 // ParentTinderApplication.kt
-package com.example.parenttinder
+package com.guero.parenttinder
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

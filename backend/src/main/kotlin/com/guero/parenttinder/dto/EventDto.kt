@@ -1,8 +1,8 @@
 // dto/EventDto.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
-import com.example.parenttinder.model.Event
-import com.example.parenttinder.model.GeoLocation
+import com.guero.parenttinder.model.Event
+import com.guero.parenttinder.model.GeoLocation
 import jakarta.validation.constraints.Future
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull

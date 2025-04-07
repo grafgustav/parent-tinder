@@ -1,5 +1,5 @@
 // config/MongoConfig.kt
-package com.example.parenttinder.config
+package com.guero.parenttinder.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

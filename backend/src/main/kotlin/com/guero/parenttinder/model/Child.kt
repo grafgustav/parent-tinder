@@ -1,5 +1,5 @@
 // model/Child.kt
-package com.example.parenttinder.model
+package com.guero.parenttinder.model
 
 import java.time.LocalDate
 

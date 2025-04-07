@@ -1,7 +1,6 @@
-// security/JwtTokenProvider.kt
-package com.example.parenttinder.security
+// src/main/kotlin/com/guero/parenttinder/security/JwtTokenProvider.kt
+package com.guero.parenttinder.security
 
-import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
@@ -11,8 +10,8 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
-import java.util.*
-import javax.servlet.http.HttpServletRequest
+import java.util.Date
+import jakarta.servlet.http.HttpServletRequest
 
 @Component
 class JwtTokenProvider(
@@ -20,7 +19,6 @@ class JwtTokenProvider(
     @Value("\${app.jwt.secret}") private val jwtSecret: String,
     @Value("\${app.jwt.expiration}") private val jwtExpirationMs: Long
 ) {
-
     private val key = Keys.hmacShaKeyFor(jwtSecret.toByteArray())
 
     fun generateToken(username: String): String {

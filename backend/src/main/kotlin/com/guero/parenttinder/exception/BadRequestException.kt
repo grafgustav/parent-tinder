@@ -1,4 +1,4 @@
 // exception/BadRequestException.kt
-package com.example.parenttinder.exception
+package com.guero.parenttinder.exception
 
 class BadRequestException(message: String) : RuntimeException(message)

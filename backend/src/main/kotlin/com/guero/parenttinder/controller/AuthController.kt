@@ -1,11 +1,12 @@
 // controller/AuthController.kt
-package com.example.parenttinder.controller
+package com.guero.parenttinder.controller
 
-import com.example.parenttinder.dto.AuthResponse
-import com.example.parenttinder.dto.LoginRequest
-import com.example.parenttinder.dto.RegisterRequest
-import com.example.parenttinder.dto.UserDto
-import com.example.parenttinder.service.AuthService
+import com.guero.parenttinder.dto.AuthResponse
+import com.guero.parenttinder.dto.LoginRequest
+import com.guero.parenttinder.dto.RegisterRequest
+import com.guero.parenttinder.dto.UserDto
+import com.guero.parenttinder.service.AuthService
+import com.guero.parenttinder.service.UserService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/auth")
-class AuthController(private val authService: AuthService) {
+class AuthController(private val authService: AuthService, private val userService: UserService) {
 
     @PostMapping("/register")
     fun register(@Valid @RequestBody request: RegisterRequest): ResponseEntity<AuthResponse> {
@@ -44,7 +45,6 @@ class AuthController(private val authService: AuthService) {
     @PostMapping("/login")
     fun login(@Valid @RequestBody request: LoginRequest): ResponseEntity<AuthResponse> {
         val token = authService.login(request.email, request.password)
-        val userId = authService.getCurrentUserId()
         
         // You'll need to implement a method to get user details by ID
         val user = userService.findByEmail(request.email)

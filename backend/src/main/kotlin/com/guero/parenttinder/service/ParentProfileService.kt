@@ -1,9 +1,9 @@
 // service/ParentProfileService.kt
-package com.example.parenttinder.service
+package com.guero.parenttinder.service
 
-import com.example.parenttinder.exception.ResourceNotFoundException
-import com.example.parenttinder.model.ParentProfile
-import com.example.parenttinder.repository.ParentProfileRepository
+import com.guero.parenttinder.exception.ResourceNotFoundException
+import com.guero.parenttinder.model.ParentProfile
+import com.guero.parenttinder.repository.ParentProfileRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 

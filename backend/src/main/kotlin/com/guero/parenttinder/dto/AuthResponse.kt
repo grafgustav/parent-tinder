@@ -1,5 +1,5 @@
 // dto/AuthResponse.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
 data class AuthResponse(
     val token: String,

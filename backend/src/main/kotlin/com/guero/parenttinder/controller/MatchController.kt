@@ -1,12 +1,12 @@
 // controller/MatchController.kt
-package com.example.parenttinder.controller
+package com.guero.parenttinder.controller
 
-import com.example.parenttinder.dto.MatchResponseDto
-import com.example.parenttinder.model.Match
-import com.example.parenttinder.model.MatchStatus
-import com.example.parenttinder.service.AuthService
-import com.example.parenttinder.service.MatchService
-import com.example.parenttinder.service.ParentProfileService
+import com.guero.parenttinder.dto.MatchResponseDto
+import com.guero.parenttinder.model.Match
+import com.guero.parenttinder.model.MatchStatus
+import com.guero.parenttinder.service.AuthService
+import com.guero.parenttinder.service.MatchService
+import com.guero.parenttinder.service.ParentProfileService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

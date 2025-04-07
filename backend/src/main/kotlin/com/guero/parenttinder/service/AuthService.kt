@@ -1,10 +1,10 @@
 // service/AuthService.kt
-package com.example.parenttinder.service
+package com.guero.parenttinder.service
 
-import com.example.parenttinder.exception.BadRequestException
-import com.example.parenttinder.model.User
-import com.example.parenttinder.repository.UserRepository
-import com.example.parenttinder.security.JwtTokenProvider
+import com.guero.parenttinder.exception.BadRequestException
+import com.guero.parenttinder.model.User
+import com.guero.parenttinder.repository.UserRepository
+import com.guero.parenttinder.security.JwtTokenProvider
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder

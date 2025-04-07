@@ -1,7 +1,7 @@
 // repository/EventRepository.kt
-package com.example.parenttinder.repository
+package com.guero.parenttinder.repository
 
-import com.example.parenttinder.model.Event
+import com.guero.parenttinder.model.Event
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository

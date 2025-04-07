@@ -1,8 +1,8 @@
 // dto/MatchResponseDto.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
-import com.example.parenttinder.model.MatchStatus
-import com.example.parenttinder.model.ParentProfile
+import com.guero.parenttinder.model.MatchStatus
+import com.guero.parenttinder.model.ParentProfile
 import java.time.LocalDateTime
 
 data class MatchResponseDto(

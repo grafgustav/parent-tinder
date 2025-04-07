@@ -1,7 +1,7 @@
 // repository/UserRepository.kt
-package com.example.parenttinder.repository
+package com.guero.parenttinder.repository
 
-import com.example.parenttinder.model.User
+import com.guero.parenttinder.model.User
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 

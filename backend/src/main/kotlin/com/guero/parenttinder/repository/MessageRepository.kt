@@ -1,7 +1,7 @@
 // repository/MessageRepository.kt
-package com.example.parenttinder.repository
+package com.guero.parenttinder.repository
 
-import com.example.parenttinder.model.Message
+import com.guero.parenttinder.model.Message
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query

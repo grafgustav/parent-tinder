@@ -1,8 +1,8 @@
 // service/UserService.kt
-package com.example.parenttinder.service
+package com.guero.parenttinder.service
 
-import com.example.parenttinder.model.User
-import com.example.parenttinder.repository.UserRepository
+import com.guero.parenttinder.model.User
+import com.guero.parenttinder.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service

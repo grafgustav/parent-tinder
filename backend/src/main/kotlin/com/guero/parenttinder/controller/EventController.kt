@@ -1,11 +1,11 @@
 // controller/EventController.kt
-package com.example.parenttinder.controller
+package com.guero.parenttinder.controller
 
-import com.example.parenttinder.dto.EventDto
-import com.example.parenttinder.model.Event
-import com.example.parenttinder.service.AuthService
-import com.example.parenttinder.service.EventService
-import com.example.parenttinder.service.ParentProfileService
+import com.guero.parenttinder.dto.EventDto
+import com.guero.parenttinder.model.Event
+import com.guero.parenttinder.service.AuthService
+import com.guero.parenttinder.service.EventService
+import com.guero.parenttinder.service.ParentProfileService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -43,7 +43,7 @@ class EventController(
             ?: return ResponseEntity.badRequest().build()
             
         val event = eventDto.toEntity(parentProfile.id!!)
-        return ResponseEntity.ok(eventService.updateEvent(id, event, parentProfile.id!!))
+        return ResponseEntity.ok(eventService.updateEvent(id, event, parentProfile.id))
     }
     
     @DeleteMapping("/{id}")

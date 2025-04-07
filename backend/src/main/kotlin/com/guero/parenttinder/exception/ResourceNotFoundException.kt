@@ -1,4 +1,4 @@
 // exception/ResourceNotFoundException.kt
-package com.example.parenttinder.exception
+package com.guero.parenttinder.exception
 
 class ResourceNotFoundException(message: String) : RuntimeException(message)

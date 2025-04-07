@@ -1,9 +1,9 @@
 // dto/ParentProfileDto.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
-import com.example.parenttinder.model.Child
-import com.example.parenttinder.model.GeoLocation
-import com.example.parenttinder.model.ParentProfile
+import com.guero.parenttinder.model.Child
+import com.guero.parenttinder.model.GeoLocation
+import com.guero.parenttinder.model.ParentProfile
 import jakarta.validation.constraints.NotBlank
 
 data class ParentProfileDto(

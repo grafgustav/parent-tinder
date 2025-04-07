@@ -1,10 +1,10 @@
 // service/MatchService.kt
-package com.example.parenttinder.service
+package com.guero.parenttinder.service
 
-import com.example.parenttinder.exception.ResourceNotFoundException
-import com.example.parenttinder.model.Match
-import com.example.parenttinder.model.MatchStatus
-import com.example.parenttinder.repository.MatchRepository
+import com.guero.parenttinder.exception.ResourceNotFoundException
+import com.guero.parenttinder.model.Match
+import com.guero.parenttinder.model.MatchStatus
+import com.guero.parenttinder.repository.MatchRepository
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

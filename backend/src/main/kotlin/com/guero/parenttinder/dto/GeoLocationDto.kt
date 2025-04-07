@@ -1,5 +1,5 @@
 // dto/GeoLocationDto.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
 data class GeoLocationDto(
     val latitude: Double,

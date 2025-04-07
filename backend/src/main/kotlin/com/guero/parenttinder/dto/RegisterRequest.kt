@@ -1,5 +1,5 @@
 // dto/RegisterRequest.kt
-package com.example.parenttinder.dto
+package com.guero.parenttinder.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
