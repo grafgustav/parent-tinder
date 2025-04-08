@@ -10,7 +10,7 @@ import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController
+//@RestController
 @RequestMapping("/api/messages")
 class MessageController(
     private val messageService: MessageService,

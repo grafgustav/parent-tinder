@@ -10,7 +10,7 @@ import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController
+//@RestController
 @RequestMapping("/api/events")
 class EventController(
     private val eventService: EventService,

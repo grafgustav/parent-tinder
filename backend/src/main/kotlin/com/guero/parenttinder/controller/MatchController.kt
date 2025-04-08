@@ -10,7 +10,7 @@ import com.guero.parenttinder.service.ParentProfileService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController
+//@RestController
 @RequestMapping("/api/matches")
 class MatchController(
     private val matchService: MatchService,
