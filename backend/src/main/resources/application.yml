@@ -4,9 +4,20 @@ spring:
       uri: mongodb://admin:password@localhost:27017/parent-connect?authSource=admin
       auto-index-creation: true
   profiles:
-    active: dev
+    active: test
+  main:
+    allow-bean-definition-overriding: true
 
 app:
   jwt:
     secret: ${JWT_SECRET:veryLongSecretKeyThatShouldBeAtLeast64BytesLongForHS512Algorithm}
     expiration: 86400000 # 24 hours
+
+# application.yml
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    disable-swagger-default-url: true
