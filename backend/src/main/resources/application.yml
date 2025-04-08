@@ -8,11 +8,18 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-app:
-  jwt:
-    secret: ${JWT_SECRET:veryLongSecretKeyThatShouldBeAtLeast64BytesLongForHS512Algorithm}
-    expiration: 86400000 # 24 hours
-
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springdoc: DEBUG
+    com.guero: DEBUG
+    # Enable Hibernate SQL logging if you're using JPA
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    
 # application.yml
 springdoc:
   api-docs:

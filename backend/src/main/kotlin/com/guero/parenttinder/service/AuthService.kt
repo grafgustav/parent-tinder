@@ -4,19 +4,12 @@ package com.guero.parenttinder.service
 import com.guero.parenttinder.exception.BadRequestException
 import com.guero.parenttinder.model.User
 import com.guero.parenttinder.repository.UserRepository
-import com.guero.parenttinder.security.JwtTokenProvider
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder,
-    private val jwtTokenProvider: JwtTokenProvider,
-    private val authenticationManager: AuthenticationManager
 ) {
     
     fun register(email: String, password: String, firstName: String, lastName: String): User {
@@ -26,7 +19,7 @@ class AuthService(
         
         val user = User(
             email = email,
-            password = passwordEncoder.encode(password),
+            password = "",
             firstName = firstName,
             lastName = lastName,
             isActive = true
@@ -35,13 +28,8 @@ class AuthService(
         return userRepository.save(user)
     }
     
-    fun login(email: String, password: String): String {
-        val authentication = authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(email, password)
-        )
-        
-        SecurityContextHolder.getContext().authentication = authentication
-        return jwtTokenProvider.generateToken(email)
+    fun login(email: String, password: String): String {        
+        return ""
     }
     
     fun getCurrentUserId(): String {
