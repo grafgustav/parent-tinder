@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-//@RestController
+@RestController
 @RequestMapping("/api/auth")
 class AuthController(private val authService: AuthService, private val userService: UserService) {
 

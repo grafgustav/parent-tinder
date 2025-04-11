@@ -6,6 +6,7 @@ import com.guero.parenttinder.model.User
 import com.guero.parenttinder.repository.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import com.guero.parenttinder.exception.InvalidCredentialsException
 
 @Service
 class AuthService(
@@ -19,7 +20,7 @@ class AuthService(
         
         val user = User(
             email = email,
-            password = "",
+            password = password,
             firstName = firstName,
             lastName = lastName,
             isActive = true
@@ -28,8 +29,18 @@ class AuthService(
         return userRepository.save(user)
     }
     
-    fun login(email: String, password: String): String {        
-        return ""
+    fun login(email: String, password: String): String {
+        // Find user by email
+        val user = userRepository.findByEmail(email)
+            ?: throw InvalidCredentialsException("Invalid email or password")
+        
+        // Verify password
+        if (password != user.password) {
+            throw InvalidCredentialsException("Invalid email or password")
+        }
+        
+        // Generate JWT token
+        return user.id.toString()
     }
     
     fun getCurrentUserId(): String {
