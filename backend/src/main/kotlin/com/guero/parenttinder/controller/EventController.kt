@@ -8,6 +8,7 @@ import com.guero.parenttinder.service.EventService
 import com.guero.parenttinder.service.ParentProfileService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -18,14 +19,17 @@ class EventController(
     private val authService: AuthService
 ) {
     
-    @PostMapping
+    @PostMapping("create")
     fun createEvent(@Valid @RequestBody eventDto: EventDto): ResponseEntity<Event> {
         val userId = authService.getCurrentUserId()
         val parentProfile = parentProfileService.getProfileByUserId(userId)
-            ?: return ResponseEntity.badRequest().build()
-            
+            ?: return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(null)
+        
         val event = eventDto.toEntity(parentProfile.id!!)
-        return ResponseEntity.ok(eventService.createEvent(event))
+        val createdEvent = eventService.createEvent(event)
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEvent)
     }
     
     @GetMapping("/{id}")
